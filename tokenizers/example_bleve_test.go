@@ -5,8 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/blevesearch/bleve"
-	_ "github.com/wangbin/jiebago/tokenizers"
+	"github.com/blevesearch/bleve/v2"
+	_ "github.com/blevesearch/bleve/v2/analysis/analyzer/custom"
+	_ "github.com/hyponet/jiebago/tokenizers"
 )
 
 func Example_beleveSearch() {
@@ -88,7 +89,7 @@ func Example_beleveSearch() {
 		}
 		fmt.Printf("Result of \"%s\": %d matches:\n", keyword, searchResults.Total)
 		for i, hit := range searchResults.Hits {
-			rv := fmt.Sprintf("%d. %s, (%f)\n", i+searchResults.Request.From+1, hit.ID, hit.Score)
+			rv := fmt.Sprintf("%d. %s, (%f)\n", i, hit.ID, hit.Score)
 			for fragmentField, fragments := range hit.Fragments {
 				rv += fmt.Sprintf("%s: ", fragmentField)
 				for _, fragment := range fragments {
